@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Temporary files
+*.log
+*.tmp
+
+# QGIS / GIS temp
+*.qmd~
+*.aux.xml
