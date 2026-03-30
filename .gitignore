@@ -17,3 +17,9 @@ venv/
 # QGIS / GIS temp
 *.qmd~
 *.aux.xml
+
+data/external/extremos2.csv
+data/external/shallowpoli2.*
+
+data/intermediate/06_catalog_for_animation.csv
+figures/06_seismic_sequence_map.html
