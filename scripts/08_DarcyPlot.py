@@ -339,16 +339,28 @@ def plot_diffusion(df: pd.DataFrame, output_path: Path) -> None:
     print(f"\nPlotting diffusion curves: {output_path}")
     print(f"Rows to plot: {len(df)}")
 
-    plt.figure(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
 
+    # --------------------------------------------------
+    # Conversión base
+    # --------------------------------------------------
+    df = df.copy()
+    df["t_months"] = df["t_hours"] / (24.0 * 30.0)
+
+    # --------------------------------------------------
+    # Scatter de sismicidad
+    # --------------------------------------------------
     if len(df) > 0:
-        plt.scatter(
-            df["t_hours"],
+        ax.scatter(
+            df["t_months"],
             df["distance_km"],
             s=20,
             label="Earthquakes",
         )
 
+    # --------------------------------------------------
+    # Curvas de difusión
+    # --------------------------------------------------
     for curve in DIFFUSION_CURVES:
         D = curve["D"]
         t_end = curve["t_end"]
@@ -361,32 +373,54 @@ def plot_diffusion(df: pd.DataFrame, output_path: Path) -> None:
         if t_curve_end <= t_curve_start:
             continue
 
-        t_range = np.linspace(t_curve_start, t_curve_end, 400)
+        t_range_hours = np.linspace(t_curve_start, t_curve_end, 400)
+        t_range_months = t_range_hours / (24.0 * 30.0)
 
-        # Physical time measured from the effective triggering time
-        r_m = np.sqrt(4.0 * D * t_range * 3600.0)
+        r_m = np.sqrt(4.0 * D * t_range_hours * 3600.0)
         r_km = r_m / 1000.0
 
-        plt.plot(
-            t_range,
+        ax.plot(
+            t_range_months,
             r_km,
             linestyle=linestyle,
             linewidth=1.8,
             label=label,
         )
 
-    plt.xlabel("Time since effective reference (hours)")
-    plt.ylabel("Distance (km)")
-    plt.title(
-        f"Apparent diffusion regimes ({TMIN:.0f} ≤ t ≤ {TMAX:.0f} h, "
-        f"ref={TIME_REFERENCE}, delay={DELAY_DAYS:.1f} d)"
-    )
-    plt.grid(True)
-    plt.legend(title="Reference curves")
+    # --------------------------------------------------
+    # Eje principal (meses)
+    # --------------------------------------------------
+    ax.set_xlabel("Time since effective reference (months)")
+    ax.set_ylabel("Distance (km)")
+    ax.set_xlim(TMIN / (24.0 * 30.0), TMAX / (24.0 * 30.0))
 
-    plt.tight_layout()
-    plt.savefig(output_path, format="png")
-    plt.close()
+    # --------------------------------------------------
+    # Eje superior (horas)
+    # --------------------------------------------------
+    def months_to_hours(x):
+        return x * 24.0 * 30.0
+
+    def hours_to_months(x):
+        return x / (24.0 * 30.0)
+
+    secax = ax.secondary_xaxis("top", functions=(months_to_hours, hours_to_months))
+    secax.set_xlabel("Time (hours)")
+
+    # --------------------------------------------------
+    # Estética (espacio extra en título)
+    # --------------------------------------------------
+    ax.set_title(
+        f"Apparent diffusion regimes ({TMIN:.0f} ≤ t ≤ {TMAX:.0f} h, "
+        f"ref={TIME_REFERENCE}, delay={DELAY_DAYS:.1f} d)",
+        pad=20  # 🔥 esto separa el título
+    )
+
+    ax.grid(True)
+    ax.legend(title="Reference curves")
+
+    fig.tight_layout()
+    fig.savefig(output_path, format="png", dpi=300)
+    plt.close(fig)
 # ---------------------------------------------------------------------
 def main() -> None:
     FIG_DIR.mkdir(parents=True, exist_ok=True)

@@ -31,6 +31,23 @@ PAPER_END = pd.Timestamp("2025-06-10 23:59:59")
 MAINSHOCK_DATE = pd.Timestamp("2024-09-03 00:00:00")
 NETWORK_READY_DATE = pd.Timestamp("2024-08-30 00:00:00")
 ANALYSIS_END_DATE = pd.Timestamp("2025-02-08 23:59:59")
+DATE1 = pd.Timestamp("2024-08-30")
+DATE2 = pd.Timestamp("2024-09-15")
+DATE3 = pd.Timestamp("2024-09-30")
+DATE4 = pd.Timestamp("2024-10-15")
+DATE5 = pd.Timestamp("2024-10-30")
+DATE6 = pd.Timestamp("2025-05-15")
+
+# =========================
+# TIME-WINDOW OUTPUTS
+# =========================
+
+CATALOG_DATE1 = DATA_INTERMEDIATE / "catalog_until_DATE1_2024-08-30.csv"
+CATALOG_DATE2 = DATA_INTERMEDIATE / "catalog_until_DATE2_2024-09-15.csv"
+CATALOG_DATE3 = DATA_INTERMEDIATE / "catalog_until_DATE3_2024-09-30.csv"
+CATALOG_DATE4 = DATA_INTERMEDIATE / "catalog_until_DATE4_2024-10-15.csv"
+CATALOG_DATE5 = DATA_INTERMEDIATE / "catalog_until_DATE5_2024-10-30.csv"
+CATALOG_DATE6 = DATA_INTERMEDIATE / "catalog_until_DATE6_2025-05-15.csv"
 
 RAIN_DATE = pd.Timestamp("2024-09-14 00:00:00")
 
