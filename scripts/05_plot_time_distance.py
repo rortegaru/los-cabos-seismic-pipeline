@@ -156,7 +156,7 @@ def make_plot(df, y_col, ylabel, title, outpath):
     )
 
     fig.tight_layout()
-    fig.savefig(outpath, dpi=300)
+    fig.savefig(outpath)
     plt.close(fig)
 
 

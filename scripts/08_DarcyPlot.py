@@ -24,9 +24,9 @@ from config import CATALOG_PROJ, FIGURES_DIR
 # Output files
 # ---------------------------------------------------------------------
 FIG_DIR = FIGURES_DIR / "darcy"
-FIG_PROFILE = FIG_DIR / "profile_depth_distance.png"
-FIG_TIME_DISTANCE = FIG_DIR / "time_distance.png"
-FIG_DIFFUSION = FIG_DIR / "diffusion_curves.png"
+FIG_PROFILE = FIG_DIR / "profile_depth_distance.svg"
+FIG_TIME_DISTANCE = FIG_DIR / "time_distance.svg"
+FIG_DIFFUSION = FIG_DIR / "diffusion_curves.svg"
 
 
 # ---------------------------------------------------------------------
@@ -307,7 +307,7 @@ def plot_profile(df: pd.DataFrame, output_path: Path) -> None:
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig(output_path, format="png")
+    plt.savefig(output_path)
     plt.close()
 
 
@@ -330,7 +330,7 @@ def plot_time_distance(df: pd.DataFrame, output_path: Path) -> None:
     plt.grid(True)
 
     plt.tight_layout()
-    plt.savefig(output_path, format="png")
+    plt.savefig(output_path)
     plt.close()
 
 
@@ -419,7 +419,7 @@ def plot_diffusion(df: pd.DataFrame, output_path: Path) -> None:
     ax.legend(title="Reference curves")
 
     fig.tight_layout()
-    fig.savefig(output_path, format="png", dpi=300)
+    fig.savefig(output_path)
     plt.close(fig)
 # ---------------------------------------------------------------------
 def main() -> None:

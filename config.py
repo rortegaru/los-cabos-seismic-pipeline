@@ -22,8 +22,8 @@ CATALOG_TULE = DATA_INTERMEDIATE / "catalog_tule_subset.csv"
 CATALOG_PROJ = DATA_INTERMEDIATE / "catalog_tule_projection.csv"
 
 # Figuras estáticas
-FIG_PROJECTED = FIGURES_DIR / "darcy_plot_projected.png"
-FIG_EUCLIDEAN = FIGURES_DIR / "darcy_plot_euclidean.png"
+FIG_PROJECTED = FIGURES_DIR / "darcy_plot_projected.svg"
+FIG_EUCLIDEAN = FIGURES_DIR / "darcy_plot_euclidean.svg"
 
 ERR_H_MAX = 280.0
 PAPER_START = pd.Timestamp("2024-08-01")
